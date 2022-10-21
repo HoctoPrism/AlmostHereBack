@@ -10,6 +10,7 @@ class Frequencies extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'frequencies_id';
     protected $fillable = ['frequencies_id', 'start_time', 'end_time', 'headway_secs', 'trip_id'];
 
     public function trip(): BelongsTo

@@ -10,6 +10,8 @@ class Calendar extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'service_id';
+    protected $table = 'calendar';
     protected $fillable = [
         'service_id',
         'monday',

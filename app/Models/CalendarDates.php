@@ -10,6 +10,7 @@ class CalendarDates extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'calendar_dates_id';
     protected $fillable = ['calendar_dates_id', 'date', 'exception_type', 'service_id'];
 
     public function service(): BelongsTo

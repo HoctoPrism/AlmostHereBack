@@ -10,6 +10,7 @@ class Shapes extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'shape_id';
     protected $fillable = ['shape_id', 'shape_pt_lat', 'shape_pt_lon', 'shape_pt_sequence'];
 
     public function trips(): HasMany

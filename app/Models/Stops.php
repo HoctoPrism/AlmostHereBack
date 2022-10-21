@@ -11,6 +11,7 @@ class Stops extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'stop_id';
     protected $fillable = [
         'stop_id',
         'stop_code',
@@ -18,12 +19,12 @@ class Stops extends Model
         'stop_lat',
         'stop_lon',
         'location_type',
-        'parent_id'
+        'parent_station'
     ];
 
-    public function parentStop(): BelongsTo
+    public function parentStation(): BelongsTo
     {
-        return $this->BelongsTo(Stops::class, 'parent_id');
+        return $this->BelongsTo(Stops::class, 'parent_station');
     }
 
     public function stopTimes(): HasMany

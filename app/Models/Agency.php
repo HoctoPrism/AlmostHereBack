@@ -10,6 +10,8 @@ class Agency extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'agency_id';
+    protected $table = 'agency';
     protected $fillable = ['agency_id', 'agency_name', 'agency_url', 'agency_fare_url', 'agency_timezone', 'agency_phone', 'agency_lang'];
 
     public function routes(): HasMany

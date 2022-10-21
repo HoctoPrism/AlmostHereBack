@@ -10,6 +10,7 @@ class StopTimes extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'stop_times_id';
     protected $fillable = [
         'stop_times_id',
         'stop_sequence',
@@ -30,6 +31,6 @@ class StopTimes extends Model
 
     public function trip(): BelongsTo
     {
-        return $this->BelongsTo(Trips::class, 'trip_id', 'stop_id');
+        return $this->BelongsTo(Trips::class, 'trip_id', 'trip_id');
     }
 }

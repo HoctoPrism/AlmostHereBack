@@ -11,6 +11,7 @@ class Routes extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'route_id';
     protected $fillable = [
         'route_id',
         'route_short_name',

@@ -10,6 +10,7 @@ class Messages extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'message_id';
     protected $fillable = ['message_id', 'message', 'favorite_id'];
 
     public function favorite(): BelongsTo

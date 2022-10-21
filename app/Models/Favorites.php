@@ -11,6 +11,7 @@ class Favorites extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'favorite_id';
     protected $fillable = ['favorite_id', 'name', 'route_id', 'user_id'];
 
     public function route(): BelongsTo

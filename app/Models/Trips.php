@@ -11,6 +11,7 @@ class Trips extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'trip_id';
     protected $fillable = ['trip_id', 'trip_headsign', 'direction_id', 'shape_id', 'route_id', 'service_id'];
 
     public function shape(): BelongsTo
