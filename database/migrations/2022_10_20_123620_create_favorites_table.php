@@ -14,10 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('favorites', function (Blueprint $table) {
-            $table->increments('favorite_id');
+            $table->bigIncrements('favorite_id');
             $table->string('name', 50);
-            $table->foreignId('route_id');
-            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

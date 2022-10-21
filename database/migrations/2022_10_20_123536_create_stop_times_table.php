@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('stop_times', function (Blueprint $table) {
-            $table->increments('stop_times_id');
+            $table->bigIncrements('stop_times_id');
             $table->integer('stop_sequence');
             $table->time('arrival_time');
             $table->time('departure_time');
@@ -22,8 +22,6 @@ return new class extends Migration
             $table->integer('pickup_type')->nullable();
             $table->integer('drop_off_type')->nullable();
             $table->integer('shape_dist_traveled')->nullable();
-            $table->foreignId('stop_id');
-            $table->foreignId('trip_id');
         });
     }
 

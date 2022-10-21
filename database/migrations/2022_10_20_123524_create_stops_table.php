@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('stops', function (Blueprint $table) {
-            $table->increments('stop_id');
+            $table->bigIncrements('stop_id');
             $table->string('stop_code', 50)->nullable();
             $table->string('stop_name', 50)->nullable();
             $table->decimal('stop_lat', 8, 6);
             $table->decimal('stop_lon',8 , 6);
             $table->integer('location_type')->nullable();
-            $table->foreignId('parent_station');
+            $table->foreignId('parent_station')->references('stop_id')->on('stops');
         });
     }
 

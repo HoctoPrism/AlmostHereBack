@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('routes', function (Blueprint $table) {
-            $table->increments('route_id');
+            $table->bigIncrements('route_id');
             $table->string('route_short_name', 20);
             $table->string('route_long_name', 100);
             $table->string('route_desc', 100)->nullable();
@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('route_url', 255)->nullable();
             $table->string('route_color', 15)->nullable();
             $table->string('route_text_color', 15)->nullable();
-            $table->foreignId('agency_id');
         });
     }
 

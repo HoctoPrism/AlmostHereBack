@@ -14,9 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->increments('message_id');
+            $table->bigIncrements('message_id');
             $table->string('message', 100);
-            $table->foreignId('favorite_id');
             $table->timestamps();
         });
     }
