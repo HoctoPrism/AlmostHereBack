@@ -37,8 +37,8 @@ return new class extends Migration
         });
 
         Schema::table('favorites', function (Blueprint $table) {
-            $table->foreignId('route_id')->constrained()->references('route_id')->on('routes');
-            $table->foreignId('user_id')->constrained()->references('id')->on('users');
+            $table->foreignId('route_id')->references('route_id')->on('routes');
+            $table->foreignId('user_id')->references('id')->on('users');
         });
 
         Schema::table('calendar_dates', function (Blueprint $table) {
