@@ -4,62 +4,34 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Stops;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class StopsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
-    }
+        $stops = Stops::with(['parentStation'])->get();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return response()->json([
+            'status' => 'Success',
+            'data' => $stops
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Stops  $stops
-     * @return \Illuminate\Http\Response
+     * @param Stops $stop
+     * @return JsonResponse
      */
-    public function show(Stops $stops)
+    public function show(Stops $stop): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Stops  $stops
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Stops $stops)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Stops  $stops
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Stops $stops)
-    {
-        //
+        $stop->load(['parentStation']);
+        return response()->json($stop);
     }
 }

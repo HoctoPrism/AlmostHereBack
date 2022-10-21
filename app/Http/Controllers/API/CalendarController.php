@@ -3,63 +3,35 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Agency;
 use App\Models\Calendar;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class CalendarController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
-    }
+        $calendars = Calendar::all();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return response()->json([
+            'status' => 'Success',
+            'data' => $calendars
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Calendar  $calendar
-     * @return \Illuminate\Http\Response
+     * @param Calendar $calendar
+     * @return JsonResponse
      */
-    public function show(Calendar $calendar)
+    public function show(Calendar $calendar): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Calendar  $calendar
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Calendar $calendar)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Calendar  $calendar
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Calendar $calendar)
-    {
-        //
+        return response()->json($calendar);
     }
 }

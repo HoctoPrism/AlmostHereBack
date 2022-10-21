@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Routes;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
-class RoutesController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,23 +16,24 @@ class RoutesController extends Controller
      */
     public function index(): JsonResponse
     {
-        $routes = Routes::with(['agency'])->get();
+        $users = DB::table('users')
+            ->get()
+            ->toArray();
 
         return response()->json([
             'status' => 'Success',
-            'data' => $routes
+            'data' => $users
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Routes $route
+     * @param User $user
      * @return JsonResponse
      */
-    public function show(Routes $route): JsonResponse
+    public function show(User $user): JsonResponse
     {
-        $route->load(['agency']);
-        return response()->json($route);
+        return response()->json($user);
     }
 }

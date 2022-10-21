@@ -4,62 +4,106 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Favorites;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class FavoritesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        $favorites = Favorites::with(['route', 'user'])->get();
+
+        return response()->json([
+            'status' => 'Success',
+            'data' => $favorites
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
+     * @throws ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        $this->validate($request ,[
+            'name' => 'required|string|max:50',
+            'route_id' => 'required|integer',
+            'user_id' => 'required|integer',
+        ]);
+
+        $favorite = Favorites::create([
+            'name' => $request->name,
+            'route_id' => $request->route_id,
+            'user_id' => $request->user_id,
+        ]);
+
+        return response()->json([
+            'status' => 'Success',
+            'data' => $favorite,
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Favorites  $favorites
-     * @return \Illuminate\Http\Response
+     * @param Favorites $favorite
+     * @return JsonResponse
      */
-    public function show(Favorites $favorites)
+    public function show(Favorites $favorite): JsonResponse
     {
-        //
+        $favorite->load(['route', 'user']);
+        return response()->json($favorite);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Favorites  $favorites
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Favorites $favorite
+     * @return JsonResponse
+     * @throws ValidationException
      */
-    public function update(Request $request, Favorites $favorites)
+    public function update(Request $request, Favorites $favorite): JsonResponse
     {
-        //
+        $this->validate($request ,[
+            'name' => 'required|string|max:50',
+            'route_id' => 'required|integer',
+            'user_id' => 'required|integer',
+        ]);
+
+        $favorite->update([
+            'name' => $request->name,
+            'route_id' => $request->route_id,
+            'user_id' => $request->user_id,
+        ]);
+
+        return response()->json([
+            'status' => 'Mise à jour avec success',
+            'date' => $favorite
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Favorites  $favorites
-     * @return \Illuminate\Http\Response
+     * @param Favorites $favorite
+     * @return JsonResponse
      */
-    public function destroy(Favorites $favorites)
+    public function destroy(Favorites $favorite): JsonResponse
     {
-        //
+        $favorite->delete();
+
+        return response()->json([
+            'status' => 'Supprimer avec success'
+        ]);
     }
 }

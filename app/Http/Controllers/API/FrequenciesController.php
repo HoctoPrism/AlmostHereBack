@@ -4,62 +4,34 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Frequencies;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class FrequenciesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
-    }
+        $frequencies = Frequencies::with(['trip'])->get();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return response()->json([
+            'status' => 'Success',
+            'data' => $frequencies
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Frequencies  $frequencies
-     * @return \Illuminate\Http\Response
+     * @param Frequencies $frequency
+     * @return JsonResponse
      */
-    public function show(Frequencies $frequencies)
+    public function show(Frequencies $frequency): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Frequencies  $frequencies
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Frequencies $frequencies)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Frequencies  $frequencies
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Frequencies $frequencies)
-    {
-        //
+        $frequency->load(['trip']);
+        return response()->json($frequency);
     }
 }
