@@ -14,6 +14,6 @@ class Messages extends Model
 
     public function favorite(): BelongsTo
     {
-        return $this->BelongsTo(Favorites::class, 'favorite_id');
+        return $this->BelongsTo(Favorites::class, 'favorite_id', 'favorite_id');
     }
 }

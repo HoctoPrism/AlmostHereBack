@@ -14,6 +14,6 @@ class Frequencies extends Model
 
     public function trip(): BelongsTo
     {
-        return $this->BelongsTo(Trips::class, 'trip_id');
+        return $this->BelongsTo(Trips::class, 'trip_id', 'trip_id');
     }
 }

@@ -15,17 +15,17 @@ class Trips extends Model
 
     public function shape(): BelongsTo
     {
-        return $this->BelongsTo(Shapes::class, 'shape_id');
+        return $this->BelongsTo(Shapes::class, 'shape_id', 'shape_id');
     }
 
     public function route(): BelongsTo
     {
-        return $this->BelongsTo(Routes::class, 'route_id');
+        return $this->BelongsTo(Routes::class, 'route_id', 'route_id');
     }
 
     public function calendar(): BelongsTo
     {
-        return $this->BelongsTo(Calendar::class, 'service_id');
+        return $this->BelongsTo(Calendar::class, 'service_id', 'service_id');
     }
 
     public function stopTimes(): HasMany

@@ -25,11 +25,11 @@ class StopTimes extends Model
 
     public function stop(): BelongsTo
     {
-        return $this->BelongsTo(Stops::class, 'stop_id');
+        return $this->BelongsTo(Stops::class, 'stop_id', 'stop_id');
     }
 
     public function trip(): BelongsTo
     {
-        return $this->BelongsTo(Trips::class, 'trip_id');
+        return $this->BelongsTo(Trips::class, 'trip_id', 'stop_id');
     }
 }

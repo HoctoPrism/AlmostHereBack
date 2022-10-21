@@ -14,6 +14,6 @@ class CalendarDates extends Model
 
     public function service(): BelongsTo
     {
-        return $this->BelongsTo(Calendar::class, 'service_id');
+        return $this->BelongsTo(Calendar::class, 'service_id', 'service_id');
     }
 }

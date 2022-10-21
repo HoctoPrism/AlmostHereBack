@@ -15,7 +15,7 @@ class Favorites extends Model
 
     public function route(): BelongsTo
     {
-        return $this->BelongsTo(Routes::class, 'route_id');
+        return $this->BelongsTo(Routes::class, 'route_id', 'route_id');
     }
 
     public function user(): BelongsTo
