@@ -29,22 +29,28 @@ class CheckHashGtfsCommand extends Command
      */
     public function handle(): int
     {
-        $file = Storage::path('gtfs/zip/gtfs-smtc.zip');
-        $hash = hash_file( "sha256", $file);
-        $api = json_decode(file_get_contents('https://transport.data.gouv.fr/api/datasets/616d6116452cadd5c04b49b7'), true);
+        $file = Storage::exists('gtfs/zip/gtfs-smtc.zip');
 
-        if (isset($api) && isset($api['resources'][0]['content_hash'])){
-            // Check the api hash with main GTFS archive hash
-            if ($api['resources'][0]['content_hash'] === $hash){
-                $this->line('<fg=blue>Data is already up to date');
-                $code = 60;
+        if ($file){
+            $hash = hash_file( "sha256", Storage::path('gtfs/zip/gtfs-smtc.zip'));
+            $api = json_decode(file_get_contents('https://transport.data.gouv.fr/api/datasets/616d6116452cadd5c04b49b7'), true);
+
+            if (isset($api) && isset($api['resources'][0]['content_hash'])){
+                // Check the api hash with main GTFS archive hash
+                if ($api['resources'][0]['content_hash'] === $hash){
+                    $this->line('<fg=blue>Data is already up to date');
+                    $code = 60;
+                } else {
+                    $this->line('<fg=yellow>Hash is not corresponding, may need an update');
+                    $code = 61;
+                }
+                return $code;
             } else {
-                $this->line('<fg=yellow>Hash is not corresponding, may need an update');
-                $code = 61;
+                $this->line("<fg=red>Can't fetch data from API");
+                return Command::FAILURE;
             }
-            return $code;
         } else {
-            $this->line("<fg=red>Can't fetch data from API");
+            $this->line("<fg=red>gtfs-smtc.zip file not found !");
             return Command::FAILURE;
         }
 
