@@ -22,7 +22,7 @@ class ExtractGtfsCommand extends Command
      *
      * @var string
      */
-    protected $description = "Command that extracts data from zip";
+    protected $description = "Extracts data from GTFS zip";
 
     /**
      * Execute the console command.

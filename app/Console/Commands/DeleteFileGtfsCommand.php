@@ -20,7 +20,7 @@ class DeleteFileGtfsCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Delete one or multiple GTFS backup files';
 
     /**
      * Execute the console command.

@@ -19,7 +19,7 @@ class CheckHashGtfsCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command to check if hashes are corresponding';
+    protected $description = 'Check if hashes are corresponding';
 
     /**
      * Execute the console command.

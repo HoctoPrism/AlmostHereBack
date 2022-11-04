@@ -20,7 +20,7 @@ class ReplaceFileGtfsCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command that replaces a file by the asked one';
+    protected $description = 'Replaces the main GTFS archive by a given one';
 
     /**
      * Execute the console command.

@@ -20,7 +20,7 @@ class DownloadGtfsCommand extends Command
      *
      * @var string
      */
-    protected $description = "Command that downloads the resources from API";
+    protected $description = "Downloads the GTFS resources from API";
 
     /**
      * Execute the console command.
