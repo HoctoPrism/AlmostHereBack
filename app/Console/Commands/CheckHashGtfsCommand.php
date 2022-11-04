@@ -22,7 +22,8 @@ class CheckHashGtfsCommand extends Command
     protected $description = 'Check if hashes are corresponding';
 
     /**
-     * Execute the console command.
+     * Check the hash of the main GTFS archive and the one from the last update at the api
+     * It's used in purpose to know if an update may be needed
      *
      * @return int
      */
@@ -33,6 +34,7 @@ class CheckHashGtfsCommand extends Command
         $api = json_decode(file_get_contents('https://transport.data.gouv.fr/api/datasets/616d6116452cadd5c04b49b7'), true);
 
         if (isset($api) && isset($api['resources'][0]['content_hash'])){
+            // Check the api hash with main GTFS archive hash
             if ($api['resources'][0]['content_hash'] === $hash){
                 $this->line('<fg=blue>Data is already up to date');
                 $code = 60;

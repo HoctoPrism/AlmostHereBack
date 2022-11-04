@@ -23,14 +23,15 @@ class DeleteFileGtfsCommand extends Command
     protected $description = 'Delete one or multiple GTFS backup files';
 
     /**
-     * Execute the console command.
+     * Command that allows to delete one or multiple GTFS backup
+     * They have to be seperated by a comma
      *
      * @return int
      */
     public function handle()
     {
         $files = Storage::allFiles('gtfs/zip');
-        $modified = [];
+        $modified = []; // needed to make custom lines for the choice
 
         // Make custom line for the select
         foreach ($files as $file) {

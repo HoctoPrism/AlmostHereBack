@@ -25,7 +25,7 @@ class ExtractGtfsCommand extends Command
     protected $description = "Extracts data from GTFS zip";
 
     /**
-     * Execute the console command.
+     * Make an extraction of the gtfs-smtc.zip archive to a folder called "data"
      *
      * @return int
      */

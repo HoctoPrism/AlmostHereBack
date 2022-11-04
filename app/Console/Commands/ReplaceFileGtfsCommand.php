@@ -23,7 +23,7 @@ class ReplaceFileGtfsCommand extends Command
     protected $description = 'Replaces the main GTFS archive by a given one';
 
     /**
-     * Execute the console command.
+     * Allows to replace the main gtfs-smtc.zip archive by a backup one
      *
      * @return int
      */

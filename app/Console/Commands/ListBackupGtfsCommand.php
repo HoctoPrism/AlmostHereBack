@@ -22,7 +22,7 @@ class ListBackupGtfsCommand extends Command
     protected $description = 'Lists all GTFS backups';
 
     /**
-     * Execute the console command.
+     * Command that lists all the GTFS backup
      *
      * @return int
      */

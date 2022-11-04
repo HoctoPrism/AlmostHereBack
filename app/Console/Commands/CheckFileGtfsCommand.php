@@ -23,7 +23,7 @@ class CheckFileGtfsCommand extends Command
     protected $description = 'Checks if gtfs-smtc.zip exists';
 
     /**
-     * Execute the console command.
+     * Check if the main archive gtfs-smtc.zip exists
      *
      * @return int
      */
