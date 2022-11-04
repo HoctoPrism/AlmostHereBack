@@ -49,8 +49,8 @@ class ReplaceFileGtfsCommand extends Command
             $copy = Storage::copy('gtfs/zip/'.$arg, 'gtfs/zip/gtfs-smtc.zip');
 
             if ($delete && $copy) {
-                $this->line('<fg=green;options=bold>The file has been changed');
-                Log::channel('gtfs')->info('The file has been changed');
+                $this->line('<fg=green;options=bold>The main GTFS has been changed with' . $arg);
+                Log::channel('gtfs')->info('The main GTFS has been changed with' . $arg);
                 return Command::SUCCESS;
             } else {
                 $this->line('<fg=red>Impossible to process the replacement');
