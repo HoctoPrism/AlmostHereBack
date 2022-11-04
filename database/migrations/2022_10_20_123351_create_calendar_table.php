@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('calendar', function (Blueprint $table) {
-            $table->bigIncrements('service_id');
+            $table->string('service_id')->primary();
             $table->boolean('monday');
             $table->boolean('tuesday');
             $table->boolean('wednesday');

@@ -14,9 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('trips', function (Blueprint $table) {
-            $table->bigIncrements('trip_id');
+            $table->string('trip_id')->primary();
+            $table->string('service_id');
+            $table->string('route_id');
             $table->string('trip_headsign', 80)->nullable();
             $table->boolean('direction_id')->nullable();
+            $table->string('shape_id');
         });
     }
 

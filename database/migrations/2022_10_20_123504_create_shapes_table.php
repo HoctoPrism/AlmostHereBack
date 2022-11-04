@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('shapes', function (Blueprint $table) {
-            $table->bigIncrements('shape_id');
-            $table->decimal('shape_pt_lat', 6, 4);
-            $table->decimal('shape_pt_lon', 6, 4);
+            $table->string('shape_id')->index();
+            $table->decimal('shape_pt_lat', 8, 6);
+            $table->decimal('shape_pt_lon', 8, 6);
             $table->integer('shape_pt_sequence');
         });
     }

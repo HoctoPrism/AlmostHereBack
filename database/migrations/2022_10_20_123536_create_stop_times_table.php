@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('stop_times', function (Blueprint $table) {
-            $table->bigIncrements('stop_times_id');
+            $table->string('trip_id');
+            $table->string('stop_id');
             $table->integer('stop_sequence');
             $table->time('arrival_time');
             $table->time('departure_time');

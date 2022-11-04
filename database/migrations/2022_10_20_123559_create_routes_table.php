@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('routes', function (Blueprint $table) {
-            $table->bigIncrements('route_id');
+            $table->string('route_id')->primary();
+            $table->string('agency_id');
             $table->string('route_short_name', 20);
             $table->string('route_long_name', 100);
             $table->string('route_desc', 100)->nullable();

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('frequencies', function (Blueprint $table) {
-            $table->bigIncrements('frequencies_id');
+            $table->string('trip_id');
             $table->time('start_time');
             $table->time('end_time');
             $table->integer('headway_secs');
