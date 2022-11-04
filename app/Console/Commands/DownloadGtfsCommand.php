@@ -44,8 +44,8 @@ class DownloadGtfsCommand extends Command
 
                 if ($copy){
 
-                    $this->line('<fg=green>The main GTFS archive has been copied as ' . $newName);
-                    Log::channel('gtfs')->info('GTFS archive downloaded successfully as gtfs-smtc.zip');
+                    $this->line('<fg=green>Main GTFS archive backup created as ' . $newName);
+                    Log::channel('gtfs')->info('Main GTFS archive backup created as ' . $newName);
 
                     file_put_contents(Storage::path('gtfs/zip/gtfs-smtc.zip'), file_get_contents($api['resources'][0]['original_url']));
 
