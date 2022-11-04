@@ -64,6 +64,14 @@ class DownloadGtfsCommand extends Command
         } elseif($hashCode == 60) {
             Log::channel('gtfs')->info('No download required');
             $this->line("<fg=green>No download required");
+        } elseif($file >= 1) {
+            $confirm = $this->confirm('<fg=white>Do you want to download an archive from the API ?');
+            Log::channel('gtfs')->info('Do you want to download an archive from the API ?');
+            if ($confirm){
+                file_put_contents(Storage::path('gtfs/zip/gtfs-smtc.zip'), file_get_contents($api['resources'][0]['original_url']));
+                Log::channel('gtfs')->info('GTFS archive downloaded successfully as gtfs-smtc.zip');
+                $this->line('<fg=green;options=bold>GTFS archive downloaded successfully as gtfs-smtc.zip');
+            }
         } else {
             Log::channel('gtfs')->info('File downloading failed');
             $this->line("<fg=red>File downloading failed");
