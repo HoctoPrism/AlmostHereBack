@@ -59,7 +59,9 @@ class CreateUserCommand extends Command
 
             if ($user){
                 $this->line('<fg=green;options=bold>User created');
+                $this->line('<fg=cyan;>Sending confirmation mail');
                 Mail::to($email)->send(new UserCreated($user, $genPassword));
+                $this->line('<fg=green;options=bold;>Mail sent');
                 return Command::SUCCESS;
             }
 
