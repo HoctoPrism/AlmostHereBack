@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Mail\UserCreated;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
@@ -25,6 +28,51 @@ class UserController extends Controller
         return response()->json([
             'status' => 'Success',
             'data' => $users
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     * @throws ValidationException
+     */
+    public function store(Request $request): JsonResponse
+    {
+        $this->validate($request ,[
+            'name' => 'required|string|max:50',
+            'firstname' => 'required|string|max:50',
+            'lastname' => 'required|string|max:50',
+            'email' => 'required|string|max:50',
+            'role' => 'nullable|string|max:5',
+        ]);
+
+        $role = 'user';
+
+        if ($request->role === 'admin'){
+            $role = $request->role;
+        }
+
+        $genPassword = substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&'), 15, 15);
+        $password = Hash::make($genPassword);
+
+        $user = User::create([
+            'name' => $request->name,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'role' => $role,
+            'password' => $password
+        ]);
+
+        if ($user){
+            Mail::to($request->email)->send(new UserCreated($user, $genPassword));
+        }
+
+        return response()->json([
+            'status' => 'Success',
+            'data' => $user,
         ]);
     }
 
@@ -78,10 +126,11 @@ class UserController extends Controller
      */
     public function destroy(User $user): JsonResponse
     {
+        $user->favorites()->delete();
         $user->delete();
 
         return response()->json([
-            'status' => 'Supprimer avec success'
+            'status' => 'Supprimé avec success'
         ]);
     }
 }

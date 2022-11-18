@@ -41,7 +41,7 @@ return new class extends Migration
         });
 
         Schema::table('messages', function (Blueprint $table) {
-            $table->foreignId('favorite_id')->references('favorite_id')->on('favorites');
+            $table->foreignId('favorite_id')->references('favorite_id')->on('favorites')->onDelete('cascade');
         });
 
         Schema::table('favorites', function (Blueprint $table) {
