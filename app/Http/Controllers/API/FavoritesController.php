@@ -65,34 +65,6 @@ class FavoritesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param Favorites $favorite
-     * @return JsonResponse
-     * @throws ValidationException
-     */
-    public function update(Request $request, Favorites $favorite): JsonResponse
-    {
-        $this->validate($request ,[
-            'name' => 'required|string|max:50',
-            'route_id' => 'required|integer',
-            'user_id' => 'required|integer',
-        ]);
-
-        $favorite->update([
-            'name' => $request->name,
-            'route_id' => $request->route_id,
-            'user_id' => $request->user_id,
-        ]);
-
-        return response()->json([
-            'status' => 'Mise à jour avec success',
-            'date' => $favorite
-        ]);
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param Favorites $favorite

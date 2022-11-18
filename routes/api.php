@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AgencyController;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CalendarController;
 use App\Http\Controllers\API\CalendarDatesController;
 use App\Http\Controllers\API\FavoritesController;
@@ -11,7 +12,7 @@ use App\Http\Controllers\API\ShapesController;
 use App\Http\Controllers\API\StopsController;
 use App\Http\Controllers\API\StopTimesController;
 use App\Http\Controllers\API\TripsController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,15 +26,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+Route::controller(AuthController::class)->group(function () {
+    Route::post('login', 'login');
+    Route::post('register', 'register');
+    Route::post('logout', 'logout');
+    Route::post('refresh', 'refresh');
+    Route::get('current-user', 'currentUser');
 });
 
 Route::controller(FavoritesController::class)->group(function () {
     Route::get('favorites', 'index');
     Route::get('favorites/{favorite}', 'show');
     Route::post('favorites', 'store');
-    Route::patch('favorites/{favorite}', 'update');
     Route::delete('favorites/{favorite}', 'destroy');
 });
 
@@ -43,6 +47,13 @@ Route::controller(MessagesController::class)->group(function () {
     Route::post('messages', 'store');
     Route::patch('messages/{message}', 'update');
     Route::delete('messages/{message}', 'destroy');
+});
+
+Route::controller(UserController::class)->group(function () {
+    Route::get('users', 'index');
+    Route::get('users/{user}', 'show');
+    Route::patch('users/{user}', 'update');
+    Route::delete('users/{user}', 'destroy');
 });
 
 Route::apiResource("agencies", AgencyController::class);

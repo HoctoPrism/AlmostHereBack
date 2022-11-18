@@ -7,6 +7,7 @@ use App\Models\Calendar;
 use App\Models\Routes;
 use App\Models\Shapes;
 use App\Models\StopTimes;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class StopTimesController extends Controller
@@ -16,9 +17,14 @@ class StopTimesController extends Controller
      *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $stop_times = StopTimes::with(['stop', 'trip'])->get();
+
+        $stop_times = StopTimes::with(['stop', 'trip'])
+            ->limit($request->query('limit'))
+            ->offset($request->query('offset'))
+            ->get()
+        ;
 
         $stop_times->map(function ($st){
             $st['trip']->shape_id = Shapes::find($st['trip']->shape_id)->first();
