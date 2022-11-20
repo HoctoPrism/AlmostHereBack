@@ -17,20 +17,10 @@ class StopTimesController extends Controller
      *
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
 
-        $stop_times = StopTimes::with(['stop', 'trip'])
-            ->limit($request->query('limit'))
-            ->offset($request->query('offset'))
-            ->get()
-        ;
-
-        $stop_times->map(function ($st){
-            $st['trip']->shape_id = Shapes::find($st['trip']->shape_id)->first();
-            $st['trip']->route_id = Routes::find($st['trip']->route_id)->first();
-            $st['trip']->service_id = Calendar::find($st['trip']->service_id)->first();
-        });
+        $stop_times = StopTimes::all();
 
         return response()->json([
             'status' => 'Success',
@@ -50,7 +40,6 @@ class StopTimesController extends Controller
 
         $stoptime['trip']->shape_id = Shapes::find($stoptime['trip']->shape_id)->first();
         $stoptime['trip']->route_id = Routes::find($stoptime['trip']->route_id)->first();
-        $stoptime['trip']->service_id = Calendar::find($stoptime['trip']->service_id)->first();
 
         return response()->json($stoptime);
     }
