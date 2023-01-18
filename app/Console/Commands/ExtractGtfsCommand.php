@@ -41,8 +41,8 @@ class ExtractGtfsCommand extends Command
             Log::channel('gtfs')->info('Data extracted');
             return Command::SUCCESS;
         } else {
-            Log::channel('gtfs')->info('failed, code:' . $res());
-            $this->alert('failed, code:' . $res());
+            Log::channel('gtfs')->info('failed, code:' . $res);
+            $this->alert('failed, code:' . $res);
             return Command::FAILURE;
         }
 

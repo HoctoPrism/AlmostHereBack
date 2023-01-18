@@ -33,20 +33,26 @@ class CheckHashGtfsCommand extends Command
 
         if ($file){
             $hash = hash_file( "sha256", Storage::path('gtfs/zip/gtfs-smtc.zip'));
-            $api = json_decode(file_get_contents('https://transport.data.gouv.fr/api/datasets/616d6116452cadd5c04b49b7'), true);
+            $api = json_decode(file_get_contents('https://transport.data.gouv.fr/api/datasets/6397c0fb7612df845fc8cd1f'), true);
+            // Download a temp file from the api to get the hash
+            file_put_contents(Storage::path('gtfs/zip/gtfs-smtc-check.zip'), file_get_contents($api['resources'][0]['original_url']));
+            $apiFile = Storage::path('gtfs/zip/gtfs-smtc-check.zip');
+            $apiHash = hash_file( "sha256", $apiFile);
 
-            if (isset($api) && isset($api['resources'][0]['content_hash'])){
+            if (isset($api) && isset($apiFile)){
                 // Check the api hash with main GTFS archive hash
-                if ($api['resources'][0]['content_hash'] === $hash){
+                if ($apiHash === $hash){
                     $this->line('<fg=blue>Data is already up to date');
                     $code = 60;
                 } else {
                     $this->line('<fg=yellow>Hash is not corresponding, may need an update');
                     $code = 61;
                 }
+                Storage::delete("gtfs/zip/gtfs-smtc-check.zip");
                 return $code;
             } else {
                 $this->line("<fg=red>Can't fetch data from API");
+                Storage::delete("gtfs/zip/gtfs-smtc-check.zip");
                 return Command::FAILURE;
             }
         } else {
