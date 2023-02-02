@@ -15,11 +15,28 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'paths' => [
+        'api/favorites*',
+        'api/messages*',
+        'api/users*',
+        'api/agencies*',
+        'api/calendars*',
+        'api/calendardates*',
+        'api/frequencies*',
+        'api/routes*',
+        'api/shapes*',
+        'api/stops*',
+        'api/stoptimes*',
+        'api/trips*',
+        'sanctum/csrf-cookie'
+    ],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:3000')],
+    'allowed_origins' => [
+        env('FRONTEND_URL', 'http://localhost:3000'),
+        env('MOBILE_URL', 'http://localhost:8081')
+    ],
 
     'allowed_origins_patterns' => [],
 

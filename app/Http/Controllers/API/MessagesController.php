@@ -85,8 +85,8 @@ class MessagesController extends Controller
         ]);
 
         return response()->json([
-            'status' => 'Mise à jour avec success',
-            'date' => $message
+            'status' => 'Mise à jour avec succès',
+            'data' => $message
         ]);
     }
 
