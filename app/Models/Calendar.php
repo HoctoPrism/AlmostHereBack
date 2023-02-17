@@ -27,7 +27,7 @@ class Calendar extends Model
 
     public function calendarDates(): HasMany
     {
-        return $this->HasMany(CalendarDates::class);
+        return $this->HasMany(CalendarDates::class, 'service_id', 'service_id');
     }
 
     public function trips(): HasMany

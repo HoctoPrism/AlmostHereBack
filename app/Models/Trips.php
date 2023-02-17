@@ -31,7 +31,7 @@ class Trips extends Model
 
     public function stopTimes(): HasMany
     {
-        return $this->HasMany(StopTimes::class);
+        return $this->HasMany(StopTimes::class, 'trip_id', 'trip_id');
     }
 
     public function calendars(): HasMany

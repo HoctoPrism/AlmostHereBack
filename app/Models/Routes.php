@@ -31,6 +31,6 @@ class Routes extends Model
 
     public function trips(): HasMany
     {
-        return $this->HasMany(Trips::class);
+        return $this->HasMany(Trips::class, 'route_id', 'route_id');
     }
 }

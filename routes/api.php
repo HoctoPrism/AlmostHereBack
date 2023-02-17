@@ -57,11 +57,16 @@ Route::controller(UserController::class)->group(function () {
     Route::delete('users/{user}', 'destroy');
 });
 
+Route::controller(RoutesController::class)->group(function () {
+    Route::get('routes', 'index');
+    Route::get('routes/{route}', 'show');
+    Route::get('routes/info/{route}', 'getOneRoute');
+});
+
 Route::apiResource("agencies", AgencyController::class);
 Route::apiResource("calendars", CalendarController::class);
 Route::apiResource("calendardates", CalendarDatesController::class);
 Route::apiResource("frequencies", FrequenciesController::class);
-Route::apiResource("routes", RoutesController::class);
 Route::apiResource("shapes", ShapesController::class);
 Route::apiResource("stops", StopsController::class);
 Route::apiResource("stoptimes", StopTimesController::class);
