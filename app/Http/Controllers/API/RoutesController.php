@@ -46,7 +46,7 @@ class RoutesController extends Controller
     public function getOneRoute(Routes $route): JsonResponse
     {
         $timeNow = Carbon::now()->format('H:m:s');
-        $timePlus2Hours = Carbon::now()->addHours(2)->format('H:m:s');
+        $timePlus1Hour = Carbon::now()->addHours(1)->format('H:m:s');
         $actualDay = Carbon::now()->englishDayOfWeek;
 
         $route->load([
@@ -55,9 +55,9 @@ class RoutesController extends Controller
                 $query->where($actualDay, '=', 1);
             },
             /*'trips.calendar.calendarDates',*/
-            'trips.stopTimes' => function ($query) use ($timeNow, $timePlus2Hours) {
+            'trips.stopTimes' => function ($query) use ($timeNow, $timePlus1Hour) {
                 $query
-                    ->whereBetween('departure_time', [$timeNow, $timePlus2Hours])
+                    ->whereBetween('departure_time', [$timeNow, $timePlus1Hour])
                 ;
             },
             'trips.stopTimes.stop',
@@ -75,8 +75,8 @@ class RoutesController extends Controller
         return response()->json([
             'data' => $route,
             'date' => $actualDay,
-            'startTime' => $timeNow,
-            'endTime' => $timePlus2Hours,
+            'startTime' => Carbon::createFromFormat('H:m:s', $timeNow)->format('H'),
+            'endTime' => Carbon::createFromFormat('H:m:s', $timePlus1Hour)->format('H'),
         ]);
     }
 }
