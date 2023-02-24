@@ -61,6 +61,7 @@ Route::controller(RoutesController::class)->group(function () {
     Route::get('routes', 'index');
     Route::get('routes/{route}', 'show');
     Route::get('routes/info/{route}', 'getOneRoute');
+    Route::post('routes/info/{route}', 'scheduleRoute');
 });
 
 Route::apiResource("agencies", AgencyController::class);
