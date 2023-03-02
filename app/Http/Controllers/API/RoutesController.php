@@ -71,6 +71,8 @@ class RoutesController extends Controller
      */
     public function getRoute(Routes $route, $choosedTime = null): JsonResponse
     {
+        $actualTime = Carbon::now()->format('Y-m-d');
+
         if (isset($choosedTime)) {
             $timeNow = Carbon::parse($choosedTime)->format('H:m:s');
             $timePlus1Hour = Carbon::parse($choosedTime)->addHours(1)->format('H:m:s');
@@ -79,7 +81,7 @@ class RoutesController extends Controller
         } else {
             $timeNow = Carbon::now()->format('H:m:s');
             $timePlus1Hour = Carbon::now()->addHours(1)->format('H:m:s');
-            $day = Carbon::now()->englishDayOfWeek;
+            $day = strtolower(Carbon::now()->englishDayOfWeek);
             $date = 'auj';
         }
 
@@ -88,7 +90,7 @@ class RoutesController extends Controller
             'trips.calendar' => function ($query) use ($day) {
                 $query->where($day, '=', 1);
             },
-            /*'trips.calendar.calendarDates',*/
+            'trips.calendar.calendarDates',
             'trips.stopTimes' => function ($query) use ($timeNow, $timePlus1Hour) {
                 $query
                     ->whereBetween('departure_time', [$timeNow, $timePlus1Hour]);
@@ -97,11 +99,23 @@ class RoutesController extends Controller
         ]);
 
         $trips = [];
+        // Get datas without empty stops or calendar
         foreach ($route->trips as $key => $trip) {
-            if (!$trip->stopTimes->isEmpty()) {
+            if (!$trip->stopTimes->isEmpty() && $trip->calendar != null) {
                 $trips[] = $trip;
             }
         }
+        // Filter trips with calendar dates exceptions (2 = removed trip)
+        foreach ($trips as $key => $trip) {
+            if (!$trip->calendar->calendarDates->isEmpty()) {
+                foreach ($trip->calendar->calendarDates as $calendarDate) {
+                    if ($calendarDate->date == $actualTime && $calendarDate->exception_type == 2) {
+                        unset($trips[$key]);
+                    }
+                }
+            }
+        }
+
         unset($route['trips']);
         $route['trips'] = $trips;
 
