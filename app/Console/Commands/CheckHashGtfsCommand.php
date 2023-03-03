@@ -33,7 +33,7 @@ class CheckHashGtfsCommand extends Command
 
         if ($file){
             $hash = hash_file( "sha256", Storage::path('gtfs/zip/gtfs-smtc.zip'));
-            $api = json_decode(file_get_contents('https://transport.data.gouv.fr/api/datasets/6082dacfd1d05e89970795f5'), true);
+            $api = json_decode(file_get_contents('https://transport.data.gouv.fr/api/datasets/6397c0fb7612df845fc8cd1f'), true);
             // Download a temp file from the api to get the hash
             file_put_contents(Storage::path('gtfs/zip/gtfs-smtc-check.zip'), file_get_contents($api['resources'][0]['original_url']));
             $apiFile = Storage::path('gtfs/zip/gtfs-smtc-check.zip');

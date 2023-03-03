@@ -31,7 +31,7 @@ class DownloadGtfsCommand extends Command
     {
         $hashCode = $this->call('gtfs:check-hash');
         $file = $this->call('gtfs:check-file');
-        $api = json_decode(file_get_contents('https://transport.data.gouv.fr/api/datasets/6082dacfd1d05e89970795f5'), true);
+        $api = json_decode(file_get_contents('https://transport.data.gouv.fr/api/datasets/6397c0fb7612df845fc8cd1f'), true);
 
         // hashcode 61 = need an update, check the existing file et check if what we receive from the api is an array
         if ($hashCode == 61 && $file == 0 && (isset($api) && gettype($api) == "array")){
