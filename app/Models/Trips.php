@@ -14,9 +14,9 @@ class Trips extends Model
     protected $primaryKey = 'trip_id';
     protected $fillable = ['trip_id', 'trip_headsign', 'direction_id', 'shape_id', 'route_id', 'service_id'];
 
-    public function shape(): BelongsTo
+    public function shape(): HasMany
     {
-        return $this->BelongsTo(Shapes::class, 'shape_id', 'shape_id');
+        return $this->HasMany(Shapes::class, 'shape_id', 'shape_id');
     }
 
     public function route(): BelongsTo

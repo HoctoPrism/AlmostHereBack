@@ -34,4 +34,16 @@ class TripsController extends Controller
         $trip->load(['shape', 'route', 'calendar']);
         return response()->json($trip);
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Trips $trip
+     * @return JsonResponse
+     */
+    public function tripInfoMap(Trips $trip): JsonResponse
+    {
+        $trip->load(['shape', 'route', 'stopTimes', 'stopTimes.stop']);
+        return response()->json($trip);
+    }
 }

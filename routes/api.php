@@ -64,6 +64,12 @@ Route::controller(RoutesController::class)->group(function () {
     Route::post('routes/info/{route}', 'scheduleRoute');
 });
 
+Route::controller(TripsController::class)->group(function () {
+    Route::get('trips', 'index');
+    Route::get('trips/{trip}', 'show');
+    Route::get('trips/info/{trip}', 'tripInfoMap');
+});
+
 Route::apiResource("agencies", AgencyController::class);
 Route::apiResource("calendars", CalendarController::class);
 Route::apiResource("calendardates", CalendarDatesController::class);
@@ -71,4 +77,3 @@ Route::apiResource("frequencies", FrequenciesController::class);
 Route::apiResource("shapes", ShapesController::class);
 Route::apiResource("stops", StopsController::class);
 Route::apiResource("stoptimes", StopTimesController::class);
-Route::apiResource("trips", TripsController::class);

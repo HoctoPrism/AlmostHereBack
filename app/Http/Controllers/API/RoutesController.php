@@ -74,13 +74,13 @@ class RoutesController extends Controller
         $actualTime = Carbon::now()->format('Y-m-d');
 
         if (isset($choosedTime)) {
-            $timeNow = Carbon::parse($choosedTime)->format('H:m:s');
-            $timePlus1Hour = Carbon::parse($choosedTime)->addHours(1)->format('H:m:s');
+            $timeNow = Carbon::parse($choosedTime)->format('H:00:00');
+            $timePlus1Hour = Carbon::parse($choosedTime)->addHours(1)->format('H:00:00');
             $day = strtolower(Carbon::parse($choosedTime)->englishDayOfWeek);
             $date = Carbon::parse($choosedTime)->format('d/m');
         } else {
-            $timeNow = Carbon::now()->format('H:m:s');
-            $timePlus1Hour = Carbon::now()->addHours(1)->format('H:m:s');
+            $timeNow = Carbon::now()->format('H:00:00');
+            $timePlus1Hour = Carbon::now()->addHours(1)->format('H:00:00');
             $day = strtolower(Carbon::now()->englishDayOfWeek);
             $date = 'auj';
         }
@@ -123,8 +123,8 @@ class RoutesController extends Controller
             'time' => $choosedTime,
             'data' => $route,
             'date' => $date,
-            'startTime' => Carbon::createFromFormat('H:m:s', $timeNow)->format('H'),
-            'endTime' => Carbon::createFromFormat('H:m:s', $timePlus1Hour)->format('H'),
+            'startTime' => Carbon::createFromFormat('H:00:00', $timeNow)->format('H'),
+            'endTime' => Carbon::createFromFormat('H:00:00', $timePlus1Hour)->format('H'),
         ]);
     }
 }
