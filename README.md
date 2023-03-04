@@ -1,3 +1,8 @@
+## About the project
+It's a project to manage the GTFS package. It's a Laravel project. With an Mobile app and a Web app (for admin).
+- React Native for the mobile app : https://github.com/HoctoPrism/AlmostHereMobile
+- NextJS for the web app : https://github.com/HoctoPrism/AlmostHereWeb
+
 ## GTFS commands
 
 This project includes multiples commands to manage the GTFS package. The GTFS part of the project works around a main GTFS archive called gtfs-smtc.zip.
