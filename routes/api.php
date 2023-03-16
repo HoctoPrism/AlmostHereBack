@@ -6,6 +6,7 @@ use App\Http\Controllers\API\CalendarController;
 use App\Http\Controllers\API\CalendarDatesController;
 use App\Http\Controllers\API\FavoritesController;
 use App\Http\Controllers\API\FrequenciesController;
+use App\Http\Controllers\API\ItinaryController;
 use App\Http\Controllers\API\MessagesController;
 use App\Http\Controllers\API\RoutesController;
 use App\Http\Controllers\API\ShapesController;
@@ -68,6 +69,7 @@ Route::controller(TripsController::class)->group(function () {
     Route::get('trips', 'index');
     Route::get('trips/{trip}', 'show');
     Route::get('trips/info/{trip}', 'tripInfoMap');
+    Route::post('trips/info/maps', 'tripInfoForBigMap');
 });
 
 Route::apiResource("agencies", AgencyController::class);
@@ -77,3 +79,4 @@ Route::apiResource("frequencies", FrequenciesController::class);
 Route::apiResource("shapes", ShapesController::class);
 Route::apiResource("stops", StopsController::class);
 Route::apiResource("stoptimes", StopTimesController::class);
+Route::apiResource("itinary/{startPointLat}/{startPointLong}/{startEndLat}/{startEndLong}", ItinaryController::class);
