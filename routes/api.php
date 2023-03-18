@@ -63,13 +63,17 @@ Route::controller(RoutesController::class)->group(function () {
     Route::get('routes/{route}', 'show');
     Route::get('routes/info/{route}', 'getOneRoute');
     Route::post('routes/info/{route}', 'scheduleRoute');
+    Route::get('routes/info/maps', 'getBigMap');
 });
 
 Route::controller(TripsController::class)->group(function () {
     Route::get('trips', 'index');
     Route::get('trips/{trip}', 'show');
     Route::get('trips/info/{trip}', 'tripInfoMap');
-    Route::post('trips/info/maps', 'tripInfoForBigMap');
+});
+
+Route::controller(ItinaryController::class)->group(function () {
+    Route::get('itinary/{startPointLat}/{startPointLong}/{endPointLat}/{endPointLong}', 'index');
 });
 
 Route::apiResource("agencies", AgencyController::class);
@@ -79,4 +83,3 @@ Route::apiResource("frequencies", FrequenciesController::class);
 Route::apiResource("shapes", ShapesController::class);
 Route::apiResource("stops", StopsController::class);
 Route::apiResource("stoptimes", StopTimesController::class);
-Route::apiResource("itinary/{startPointLat}/{startPointLong}/{endPointLat}/{endPointLong}", ItinaryController::class);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Repositories\RouteRepository;
 use App\Models\Routes;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,6 +11,12 @@ use Illuminate\Http\JsonResponse;
 
 class RoutesController extends Controller
 {
+    private RouteRepository $routeRepository;
+    public function __construct(RouteRepository $routeRepository)
+    {
+        $this->routeRepository = $routeRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -126,5 +133,14 @@ class RoutesController extends Controller
             'startTime' => Carbon::createFromFormat('H:00:00', $timeNow)->format('H'),
             'endTime' => Carbon::createFromFormat('H:00:00', $timePlus1Hour)->format('H'),
         ]);
+    }
+
+    /**
+     * Display the specified resource.
+     * @return JsonResponse
+     */
+    public function getBigMap(): JsonResponse
+    {
+        return response()->json($this->routeRepository->getAllRouteForTheBigMap());
     }
 }
