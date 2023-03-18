@@ -32,11 +32,9 @@ class ItinaryController extends Controller
         $startingPointTrips = $this->itinaryRepository->getTripsNamesFromStopsForItinary($startingPoint);
 
         $closestEndpointFromDestination = $this->itinaryRepository->getNearestEndingStopsForItinary($startingPointTrips, $endPointLat, $endPointLong);
+        $result = $this->filterLinesAndKeepTheShorterOneOfEach($closestEndpointFromDestination, $startingPointTrips, $startingPoint);
 
-        return response()->json([
-            'status' => 'Success',
-            'data' => $this->filterLinesAndKeepTheShorterOneOfEach($closestEndpointFromDestination, $startingPointTrips, $startingPoint)
-        ]);
+        return response()->json($result);
     }
 
     /**
@@ -60,6 +58,13 @@ class ItinaryController extends Controller
                     $startPt = $startingPoint->firstWhere('stop_id', $trip->stop_id);
                     $oneTripPerResult[$destination->route_long_name] = [
                         'route_long_name' => $destination->route_long_name,
+                        'shapes' =>$this->itinaryRepository->getShapesFromTripIdForItinary(
+                            $destination->shape_id,
+                            $startPt->stop_lat,
+                            $startPt->stop_lon,
+                            $destination->stop_lat,
+                            $destination->stop_lon
+                        ),
                         'start_point' => $startPt,
                         'end_point' => $destination
                     ];
@@ -75,6 +80,13 @@ class ItinaryController extends Controller
                         $startPt = $startingPoint->firstWhere('stop_id', $trip->stop_id);
                         $oneTripPerResult[$destination->route_long_name] = [
                             'route_long_name' => $destination->route_long_name,
+                            'shapes' => $this->itinaryRepository->getShapesFromTripIdForItinary(
+                                $destination->shape_id,
+                                $startPt->stop_lat,
+                                $startPt->stop_lon,
+                                $destination->stop_lat,
+                                $destination->stop_lon
+                            ),
                             'start_point' => $startPt,
                             'end_point' => $destination
                         ];

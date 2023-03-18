@@ -79,4 +79,4 @@ Route::apiResource("frequencies", FrequenciesController::class);
 Route::apiResource("shapes", ShapesController::class);
 Route::apiResource("stops", StopsController::class);
 Route::apiResource("stoptimes", StopTimesController::class);
-Route::apiResource("itinary/{startPointLat}/{startPointLong}/{startEndLat}/{startEndLong}", ItinaryController::class);
+Route::apiResource("itinary/{startPointLat}/{startPointLong}/{endPointLat}/{endPointLong}", ItinaryController::class);
