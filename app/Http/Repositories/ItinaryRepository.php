@@ -49,7 +49,7 @@ class ItinaryRepository implements ItinaryRepositoryInterface {
         $long = number_format($long, 8);
 
         return Stops::query()
-            ->selectRaw("route_long_name, MAX(trips.shape_id) as shape_id, route_color, stop_name, MAX(stop_lat) as stop_lat, MAX(stop_lon) as stop_lon, TRUNCATE(MIN( 3959 * acos( cos( radians($lat) ) * cos( radians( stop_lat ) ) *
+            ->selectRaw("route_long_name, routes.route_id, MAX(trips.shape_id) as shape_id, route_color, route_text_color, stop_name, MAX(stop_lat) as stop_lat, MAX(stop_lon) as stop_lon, TRUNCATE(MIN( 3959 * acos( cos( radians($lat) ) * cos( radians( stop_lat ) ) *
                 cos( radians( stop_lon ) - radians($long) ) + sin( radians($lat) ) *
                 sin( radians( stop_lat ) ) ) ), 3) AS distance"
             )
@@ -57,7 +57,7 @@ class ItinaryRepository implements ItinaryRepositoryInterface {
             ->join('trips', 'stop_times.trip_id', '=', 'trips.trip_id')
             ->join('routes', 'trips.route_id', '=', 'routes.route_id')
             ->whereIn('route_long_name', $tripsAvailableFromStartPosition->pluck('route_long_name'))
-            ->groupBy('stop_name', 'route_long_name', 'route_color')
+            ->groupBy('stop_name', 'route_long_name', 'route_color', 'route_id', 'route_text_color')
             ->having('distance', '<', 25)
             ->orderBy('distance')
             ->limit(5)
