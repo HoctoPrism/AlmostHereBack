@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/pjqh7612/almosthere7fez9hz9aooj45f8s8glzaja7f77jh8fza
+    - /bin/cp -r /home/pjqh7612/repositories/AlmostHere/* $DEPLOYPATH
