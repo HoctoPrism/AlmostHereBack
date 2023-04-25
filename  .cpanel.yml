@@ -2,4 +2,19 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/pjqh7612/almosthere7fez9hz9aooj45f8s8glzaja7f77jh8fza
-    - /bin/cp -r /home/pjqh7612/repositories/AlmostHere/* $DEPLOYPATH
+    - /bin/cp -r app $DEPLOYPATH
+    - /bin/cp -r bootstrap $DEPLOYPATH
+    - /bin/cp -r config $DEPLOYPATH
+    - /bin/cp -r database $DEPLOYPATH
+    - /bin/cp -r lang $DEPLOYPATH
+    - /bin/cp -r public $DEPLOYPATH
+    - /bin/cp -r resources $DEPLOYPATH
+    - /bin/cp -r routes $DEPLOYPATH
+    - /bin/cp -r storage $DEPLOYPATH
+    - /bin/cp .editorconfig $DEPLOYPATH
+    - /bin/cp artisan $DEPLOYPATH
+    - /bin/cp composer.json $DEPLOYPATH
+    - /bin/cp composer.lock $DEPLOYPATH
+    - /bin/cp package-lock.json $DEPLOYPATH
+    - /bin/cp phpunit.xml $DEPLOYPATH
+    - /bin/cp README.md $DEPLOYPATH
