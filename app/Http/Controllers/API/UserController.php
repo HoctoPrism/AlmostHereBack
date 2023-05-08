@@ -21,9 +21,7 @@ class UserController extends Controller
      */
     public function index(): JsonResponse
     {
-        $users = DB::table('users')
-            ->get()
-            ->toArray();
+        $users = User::all();
 
         return response()->json([
             'status' => 'Success',
