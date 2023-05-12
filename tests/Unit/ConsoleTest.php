@@ -2,7 +2,8 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Illuminate\Support\Facades\Storage;
+use Tests\TestCase;
 
 class ConsoleTest extends TestCase
 {
@@ -13,16 +14,16 @@ class ConsoleTest extends TestCase
      */
     public function test_compare_hash_and_they_are_equal()
     {
-        $apiHash = '123456789';
-        $hash = '123456789';
+        $hash = hash_file( "sha256", Storage::path('gtfs/zip/gtfs-smtc.zip'));
+        $hash2 = hash_file( "sha256", Storage::path('gtfs/zip/gtfs-smtc.zip'));
 
         $code = 0;
 
-        if ($apiHash === $hash){
+        if ($hash === $hash2){
             $code = 60;
         }
 
-        $this->assertIsString($apiHash);
+        $this->assertIsString($hash2);
         $this->assertIsString($hash);
         $this->assertIsNumeric($code);
 
@@ -37,14 +38,11 @@ class ConsoleTest extends TestCase
      */
     public function test_compare_hash_and_they_are_not_equal()
     {
-        $apiHash = '123456789';
-        $hash = '1234567890';
-        $code = 0;
-        if ($apiHash === $hash){
-            $code = 60;
-        } else {
-            $code = 61;
-        }
+        $hash = hash_file( "sha256", Storage::path('gtfs/zip/gtfs-smtc.zip'));
+        $apiHash = "333333";
+
+        $apiHash === $hash ? $code = 60 : $code = 61;
+
         $this->assertIsString($apiHash);
         $this->assertIsString($hash);
         $this->assertIsNumeric($code);
